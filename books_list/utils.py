@@ -10,25 +10,23 @@ def get_books_from_api(keywords):
     for item in items:
         volume_info = item['volumeInfo']
 
-        title = volume_info['title']
-        publish_date = volume_info['publishedDate']
-        industry_identifiers = volume_info["industryIdentifiers"]
-        language = volume_info['language']
+        title = volume_info.get('title', None)
+        publish_date = volume_info.get('publishedDate', None)
+        language = volume_info.get('language', None)
+        page_count = volume_info.get('pageCount', None)
 
         authors = None
         isbn = None
         thumbnail = None
-        page_count = None
 
         if volume_info.get('authors'):
             authors = ", ".join(volume_info['authors'])
 
-        if volume_info.get('pageCount'):
-            page_count = volume_info['pageCount']
-
-        for industry_identifier in industry_identifiers:
-            if industry_identifier['type'] == 'ISBN_13':
-                isbn = industry_identifier['identifier']
+        if volume_info.get("industryIdentifiers"):
+            industry_identifiers = volume_info["industryIdentifiers"]
+            for industry_identifier in industry_identifiers:
+                if industry_identifier['type'] == 'ISBN_13':
+                    isbn = industry_identifier['identifier']
 
         if volume_info.get('imageLinks'):
             thumbnail = volume_info['imageLinks']['thumbnail']

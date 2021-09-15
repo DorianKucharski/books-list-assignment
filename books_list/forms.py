@@ -6,13 +6,13 @@ from books_list.utils import normalize_language, normalize_date
 
 class BookForm(forms.Form):
     widget = forms.TextInput(attrs={'class': 'form-control'})
-    title = forms.CharField(max_length=100, widget=widget)
+    title = forms.CharField(max_length=100, widget=widget, required=False)
     authors = forms.CharField(max_length=100, widget=widget, required=False)
-    publish_date = forms.CharField(max_length=100, widget=widget, validators=[date_validator])
+    publish_date = forms.CharField(max_length=100, widget=widget, validators=[date_validator], required=False)
     isbn = forms.IntegerField(widget=widget, required=False, validators=[isbn_validator])
     page_count = forms.IntegerField(widget=widget, required=False)
     thumbnail = forms.CharField(max_length=999, widget=widget, required=False, validators=[url_validator])
-    language = forms.CharField(max_length=100, widget=widget, validators=[language_validator])
+    language = forms.CharField(max_length=100, widget=widget, validators=[language_validator], required=False)
 
     def to_book(self):
         book = Book(title=self.data['title'],
@@ -36,8 +36,8 @@ class BookForm(forms.Form):
     @staticmethod
     def from_book(book):
         book_form = BookForm(data={'title': book.title, 'authors': book.authors, 'publish_date': book.publish_date,
-                                      'isbn': book.isbn, 'page_count': book.page_count, 'thumbnail': book.thumbnail,
-                                      'language': book.language})
+                                   'isbn': book.isbn, 'page_count': book.page_count, 'thumbnail': book.thumbnail,
+                                   'language': book.language})
 
         return book_form
 

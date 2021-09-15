@@ -14,7 +14,6 @@ def books_list(request):
     language = request.GET.get('language', "")
     date_begin = request.GET.get('date_begin', None)
     date_end = request.GET.get('date_end', None)
-
     books = filter_books(title, authors, language, date_begin, date_end)
 
     data = {'books': books, 'title': title, 'authors': authors, 'language': language, 'date_begin': date_begin,
@@ -66,7 +65,6 @@ def book_import(request):
         data = {k: v for k, v in data.items() if v}
         query = "+".join([":".join([k, v]) for k, v in data.items()])
         get_books_from_api(query)
-
         return redirect('/')
 
 
@@ -76,9 +74,6 @@ def api(request):
     language = request.GET.get('language', None)
     date_begin = request.GET.get('date_begin', None)
     date_end = request.GET.get('date_end', None)
-
     books = filter_books(title, authors, language, date_begin, date_end)
-
     response = {'books': [BookSerializer(o).data for o in books]}
-
     return JsonResponse(response)

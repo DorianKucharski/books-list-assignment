@@ -5,16 +5,13 @@ from django.db.models import Q
 class Book(models.Model):
     db_table = "books"
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default=None, blank=True, null=True)
     authors = models.CharField(max_length=100, default=None, blank=True, null=True)
-    publish_date = models.CharField(max_length=100)
-    isbn = models.IntegerField(default=None, blank=True, null=True)
+    publish_date = models.CharField(max_length=100, default=None, blank=True, null=True)
+    isbn = models.BigIntegerField(default=None, blank=True, null=True)
     page_count = models.IntegerField(default=None, blank=True, null=True)
     thumbnail = models.CharField(max_length=999, default=None, blank=True, null=True)
-    language = models.CharField(max_length=100)
-
-    def __str__(self):
-        return " | ".join([self.title])
+    language = models.CharField(max_length=100, default=None, blank=True, null=True)
 
     def update_by_other_object(self, other):
         self.title = other.title
