@@ -63,10 +63,10 @@ def filter_books(title, authors, language, date_begin, date_end):
     books = Book.objects.all()
 
     if title:
-        books = books.filter(title__contains=title)
+        books = books.filter(title__icontains=title)
 
     if authors:
-        books = books.filter(authors__contains=authors)
+        books = books.filter(authors__icontains=authors)
 
     if language:
         language = normalize_language(language)

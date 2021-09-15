@@ -75,5 +75,8 @@ def api(request):
     date_begin = request.GET.get('date_begin', None)
     date_end = request.GET.get('date_end', None)
     books = filter_books(title, authors, language, date_begin, date_end)
-    response = {'books': [BookSerializer(o).data for o in books]}
+    info = "query string parameters: title, authors, language, date_begin, date_end"
+    example = "https://books-list-assignment.herokuapp.com/api?authors=tolkien&date_begin=2000-01-01"
+
+    response = {'info': info, 'example': example, 'books': [BookSerializer(o).data for o in books]}
     return JsonResponse(response)

@@ -3,8 +3,6 @@ from django.db.models import Q
 
 
 class Book(models.Model):
-    db_table = "books"
-
     title = models.CharField(max_length=100, default=None, blank=True, null=True)
     authors = models.CharField(max_length=100, default=None, blank=True, null=True)
     publish_date = models.CharField(max_length=100, default=None, blank=True, null=True)
@@ -27,3 +25,10 @@ class Book(models.Model):
                                     & Q(isbn=self.isbn) & Q(page_count=self.page_count) & Q(thumbnail=self.thumbnail)
                                     & Q(language=self.language))
         return len(found) > 0
+
+    def __str__(self):
+        string = ""
+        string += self.title + " | " if self.title else ""
+        string += self.authors + " | " if self.authors else ""
+        string += self.publish_date + " | " if self.publish_date else ""
+        return string
