@@ -1,4 +1,5 @@
 requests
 django
+djangorestframework
 validators
 psycopg2
