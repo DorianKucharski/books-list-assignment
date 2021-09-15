@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <form class="d-flex" action="/" method="get">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+                <input type="text" class="form-control" name="title" value="{{ title }}">
+
+                <span class="input-group-text" id="basic-addon1">Authors</span>
+                <input type="text" class="form-control" name="authors" value="{{ authors }}">
+
+                <span class="input-group-text" id="basic-addon1">Language</span>
+                <input type="text" class="form-control" name="language" value="{{ language }}">
+
+                <span class="input-group-text" id="basic-addon1">Date begin</span>
+                <input type="date" class="form-control" name="date_begin" value="{{ date_begin }}">
+
+                <span class="input-group-text" id="basic-addon1">Date end</span>
+                <input type="date" class="form-control" name="date_end" value="{{ date_end }}">
+
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <a href="/"  class="btn btn-outline-success">Clear</a>
+            </form>
+            <a href="/import"  class="btn btn-outline-success">Import</a>
+            <a href="/0/"  class="btn btn-outline-success">Add new</a>
+        </div>
+    </nav>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Authors</th>
+            <th scope="col">Publish date</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Page count</th>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Language</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.authors }}</td>
+                <td>{{ book.publish_date }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.page_count }}</td>
+                <td>{{ book.thumbnail }}</td>
+                <td>{{ book.language }}</td>
+                <td><a href="/{{ book.id }}/">
+                    <button class="btn btn-primary">Edit</button>
+                </a></td>
+                <td><a href="/delete/{{ book.id }}/">
+                    <button class="btn btn-danger">Delete</button>
+                </a></td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

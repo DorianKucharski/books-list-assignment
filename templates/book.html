@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container" style="padding-top: 5vh">
+        <form method="post">
+            {% csrf_token %}
+
+
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }} {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+{% endblock %}
